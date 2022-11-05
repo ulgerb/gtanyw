@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block body %}
+    <br><br><br>
+    <div class="row">
+        <div class="col">
+            
+            
+            {% if urunler %}
+
+            {% for i in urunler %}         
+            <div class="card mb-3" style="max-height: 240px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ i.car.image.url }}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.car.title }}</h5>
+                            <p class="card-text">Fiyat: {{ i.fiyat }}tl</p>
+                            
+                            <!-- form -->
+                            <form action="" method="POST" class="align-items-center">
+                                {% csrf_token %}
+                                <label for="number">Adet:</label>
+                                <input type="number" name="number{{ i.id }}" value="{{ i.adet }}" min="1" class="py-2 form-control d-inline-flex"
+                                    style="width: 70px;">
+                                <button type="submit" class="btn btn-primary">Ürünü Güncelle</button>
+                                <a class="btn btn-danger" href="/deletesepet/{{ i.id }}/">X</a>
+                            </form>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <h2>Toplam Fiyat</h2>
+            <h3>{{ tolamfiyat }}</h3>
+            {% else %}
+            <h3>Sepet Boş</h3>
+            {% endif %}
+            
+            
+                
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+{% endblock body %}
+    
